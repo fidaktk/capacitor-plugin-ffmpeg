@@ -1,4 +1,4 @@
-var capacitorPlugin = (function (exports, core) {
+var capacitorAdjustResize = (function (exports, core) {
     'use strict';
 
     exports.Level = void 0;
@@ -52,6 +52,10 @@ var capacitorPlugin = (function (exports, core) {
         Level[Level["AV_LOG_TRACE"] = 56] = "AV_LOG_TRACE";
     })(exports.Level || (exports.Level = {}));
 
+    const FFMpeg = core.registerPlugin('FFMpeg', {
+        web: () => Promise.resolve().then(function () { return web; }).then(m => new m.FFMpegWeb()),
+    });
+
     class FFMpegWeb extends core.WebPlugin {
         constructor() {
             super({
@@ -59,19 +63,22 @@ var capacitorPlugin = (function (exports, core) {
                 platforms: ['web'],
             });
         }
-        run(_) {
+        // eslint-disable-next-line @typescript-eslint/no-unused-vars
+        runCmd(_) {
             throw new Error('Method not implemented.');
         }
     }
-    const FFMpeg = new FFMpegWeb();
-    core.registerWebPlugin(FFMpeg);
+
+    var web = /*#__PURE__*/Object.freeze({
+        __proto__: null,
+        FFMpegWeb: FFMpegWeb
+    });
 
     exports.FFMpeg = FFMpeg;
-    exports.FFMpegWeb = FFMpegWeb;
 
     Object.defineProperty(exports, '__esModule', { value: true });
 
     return exports;
 
-}({}, capacitorExports));
+})({}, capacitorExports);
 //# sourceMappingURL=plugin.js.map

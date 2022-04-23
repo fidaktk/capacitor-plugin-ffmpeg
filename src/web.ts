@@ -1,5 +1,6 @@
-import { WebPlugin, registerWebPlugin } from '@capacitor/core';
-import { FFMpegPlugin } from './definitions';
+import { WebPlugin } from '@capacitor/core';
+
+import type { FFMpegPlugin } from './definitions';
 
 export class FFMpegWeb extends WebPlugin implements FFMpegPlugin {
   constructor() {
@@ -9,15 +10,8 @@ export class FFMpegWeb extends WebPlugin implements FFMpegPlugin {
     });
   }
 
-  run(_: { args: string; }): Promise<{ execution_id: number; }> {
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  runCmd(_: { args: string }): Promise<{ execution_id: number }> {
     throw new Error('Method not implemented.');
   }
-
-
 }
-
-const FFMpeg = new FFMpegWeb();
-
-registerWebPlugin(FFMpeg);
-
-export { FFMpeg };

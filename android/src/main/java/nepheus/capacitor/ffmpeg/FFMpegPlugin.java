@@ -1,17 +1,18 @@
-package dev.thesayyn.ffmpeg;
+package nepheus.capacitor.ffmpeg;
 
 import com.arthenica.mobileffmpeg.Config;
 import com.arthenica.mobileffmpeg.FFmpeg;
+
 import com.getcapacitor.JSObject;
-import com.getcapacitor.NativePlugin;
 import com.getcapacitor.Plugin;
 import com.getcapacitor.PluginCall;
 import com.getcapacitor.PluginMethod;
+import com.getcapacitor.annotation.CapacitorPlugin;
 
-@NativePlugin
-public class FFMpeg extends Plugin {
-
-    public FFMpeg() {
+@CapacitorPlugin(name = "FFMpeg")
+public class FFMpegPlugin extends Plugin {
+    @Override
+    public void load() {
         Config.enableStatisticsCallback(statistics -> {
             JSObject stats = new JSObject();
             stats.put("execution_id", statistics.getExecutionId());
@@ -34,9 +35,9 @@ public class FFMpeg extends Plugin {
     }
 
     @PluginMethod
-    public void run(PluginCall call) {
+    public void runCmd(PluginCall call) {
         if (! call.hasOption("args") ) {
-            call.error("args property is missing.");
+            call.reject("args property is missing.");
             return;
         }
 
@@ -46,11 +47,10 @@ public class FFMpeg extends Plugin {
             if (returnCode == Config.RETURN_CODE_SUCCESS) {
                 JSObject result = new JSObject();
                 result.put("execution_id", executionId);
-                call.success(result);
+                call.resolve(result);
             } else {
-                call.error("process has failed.", String.valueOf(returnCode), new Exception("process has failed."));
+                call.reject("process has failed.", String.valueOf(returnCode), new Exception("process has failed."));
             }
         });
-
     }
 }

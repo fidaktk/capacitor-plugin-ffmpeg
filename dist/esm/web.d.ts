@@ -1,12 +1,10 @@
 import { WebPlugin } from '@capacitor/core';
-import { FFMpegPlugin } from './definitions';
+import type { FFMpegPlugin } from './definitions';
 export declare class FFMpegWeb extends WebPlugin implements FFMpegPlugin {
     constructor();
-    run(_: {
+    runCmd(_: {
         args: string;
     }): Promise<{
         execution_id: number;
     }>;
 }
-declare const FFMpeg: FFMpegWeb;
-export { FFMpeg };

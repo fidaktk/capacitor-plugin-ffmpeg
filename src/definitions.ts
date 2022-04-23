@@ -1,12 +1,6 @@
-declare module '@capacitor/core' {
-  interface PluginRegistry {
-    FFMpeg: FFMpegPlugin;
-  }
-}
-
 export interface Statistic {
-  execution_id: number,
-  bitrate: number,
+  execution_id: number;
+  bitrate: number;
   size: number;
   speed: number;
   time: number;
@@ -22,7 +16,6 @@ export interface Message {
 }
 
 export enum Level {
-
   /**
    * This log level is defined by MobileFFmpeg. It is used to specify logs printed to stderr by
    * ffmpeg. Logs that has this level are not filtered and always redirected.
@@ -79,10 +72,8 @@ export enum Level {
    * Extremely verbose debugging, useful for libav* development.
    */
   AV_LOG_TRACE = 56,
-
-  
 }
 
 export interface FFMpegPlugin {
-  run(options: { args: string }): Promise<{execution_id: number}>;
+  runCmd(options: { args: string }): Promise<{ execution_id: number }>;
 }

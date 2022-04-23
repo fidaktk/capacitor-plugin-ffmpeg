@@ -1,4 +1,4 @@
-import { WebPlugin, registerWebPlugin } from '@capacitor/core';
+import { WebPlugin } from '@capacitor/core';
 export class FFMpegWeb extends WebPlugin {
     constructor() {
         super({
@@ -6,11 +6,9 @@ export class FFMpegWeb extends WebPlugin {
             platforms: ['web'],
         });
     }
-    run(_) {
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    runCmd(_) {
         throw new Error('Method not implemented.');
     }
 }
-const FFMpeg = new FFMpegWeb();
-registerWebPlugin(FFMpeg);
-export { FFMpeg };
 //# sourceMappingURL=web.js.map

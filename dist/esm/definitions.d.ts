@@ -1,8 +1,3 @@
-declare module '@capacitor/core' {
-    interface PluginRegistry {
-        FFMpeg: FFMpegPlugin;
-    }
-}
 export interface Statistic {
     execution_id: number;
     bitrate: number;
@@ -68,7 +63,7 @@ export declare enum Level {
     AV_LOG_TRACE = 56
 }
 export interface FFMpegPlugin {
-    run(options: {
+    runCmd(options: {
         args: string;
     }): Promise<{
         execution_id: number;

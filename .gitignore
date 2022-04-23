@@ -6,14 +6,6 @@
 #dist/
 node_modules/
 
-# iOS files
-Pods
-Build
-xcuserdata
-
-# macOS files
-.DS_Store
-
 
 
 # Based on Android gitignore template: https://github.com/github/gitignore/blob/master/Android.gitignore
