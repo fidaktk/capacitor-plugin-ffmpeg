@@ -1,4 +1,4 @@
-var capacitorAdjustResize = (function (exports, core) {
+var capacitorFFMpeg = (function (exports, core) {
     'use strict';
 
     exports.Level = void 0;
