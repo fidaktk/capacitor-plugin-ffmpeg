@@ -1,7 +1,8 @@
 package nepheus.capacitor.ffmpeg;
 
-import com.arthenica.mobileffmpeg.Config;
-import com.arthenica.mobileffmpeg.FFmpeg;
+import com.arthenica.ffmpegkit.FFmpegKitConfig;
+import com.arthenica.ffmpegkit.FFmpegKit;
+import com.arthenica.ffmpegkit.ReturnCode;
 
 import com.getcapacitor.JSObject;
 import com.getcapacitor.Plugin;
@@ -13,9 +14,9 @@ import com.getcapacitor.annotation.CapacitorPlugin;
 public class FFMpegPlugin extends Plugin {
     @Override
     public void load() {
-        Config.enableStatisticsCallback(statistics -> {
+        FFmpegKitConfig.enableStatisticsCallback(statistics -> {
             JSObject stats = new JSObject();
-            stats.put("execution_id", statistics.getExecutionId());
+            stats.put("session_id", statistics.getSessionId());
             stats.put("bitrate", statistics.getBitrate());
             stats.put("size", statistics.getSize());
             stats.put("speed", statistics.getSpeed());
@@ -25,11 +26,11 @@ public class FFMpegPlugin extends Plugin {
             stats.put("video_quality", statistics.getVideoQuality());
             notifyListeners("statistic", stats);
         });
-        Config.enableLogCallback(message -> {
+        FFmpegKitConfig.enableLogCallback(message -> {
             JSObject entry = new JSObject();
-            entry.put("execution_id", message.getExecutionId());
+            entry.put("session_id", message.getSessionId());
             entry.put("level", message.getLevel());
-            entry.put("text", message.getText());
+            entry.put("message", message.getMessage());
             notifyListeners("message", entry);
         });
     }
@@ -43,13 +44,13 @@ public class FFMpegPlugin extends Plugin {
 
         String args = call.getString("args");
 
-        FFmpeg.executeAsync(args, (executionId, returnCode) -> {
-            if (returnCode == Config.RETURN_CODE_SUCCESS) {
+        FFmpegKit.executeAsync(args, (session) -> {
+            if (ReturnCode.isSuccess(session.getReturnCode())) {
                 JSObject result = new JSObject();
-                result.put("execution_id", executionId);
+                result.put("session_id", session.getSessionId());
                 call.resolve(result);
             } else {
-                call.reject("process has failed.", String.valueOf(returnCode), new Exception("process has failed."));
+                call.reject("process has failed.", String.valueOf(session.getReturnCode()), new Exception("process has failed."));
             }
         });
     }
