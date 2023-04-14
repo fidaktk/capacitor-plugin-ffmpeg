@@ -1,6 +1,6 @@
 {
   "name": "capacitor-ffmpeg",
-  "version": "4.0.1",
+  "version": "5.0.0",
   "description": "FFMpeg capacitor plugin",
   "main": "dist/plugin.js",
   "module": "dist/esm/index.js",
